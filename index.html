@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101510">
+<title>HorizonTok — Feed prototype</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0e0c;--panel:#151a16;--line:#29332b;--green:#9cff62;--muted:#99a59b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f3f7f3;font:16px system-ui,-apple-system,Segoe UI,sans-serif}
+header{position:sticky;top:0;z-index:2;background:#0b0e0ceF;border-bottom:1px solid var(--line);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:850;letter-spacing:.3px}.brand span{color:var(--green)}.status{font-size:12px;color:var(--muted)}
+main{max-width:620px;margin:auto;padding:14px 14px 90px}.tabs{display:flex;gap:16px;justify-content:center;padding:8px 0 18px;color:var(--muted)}.tabs .active{color:#fff;font-weight:700;border-bottom:2px solid var(--green);padding-bottom:6px}
+.notice{border:1px solid #41513f;background:#182119;border-radius:14px;padding:12px 14px;margin:8px 0 18px;font-size:13px;color:#d2dfd2}.notice b{color:var(--green)}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:18px;overflow:hidden;margin:14px 0}
+.video{aspect-ratio:9/13;max-height:540px;background:linear-gradient(145deg,#17221b,#101510 55%,#202d22);display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}
+.video .demo{border:1px solid #405140;background:#172119;padding:20px;border-radius:16px;color:#b9c8ba;max-width:270px}
+.video strong{display:block;color:var(--green);font-size:20px;margin-bottom:8px}
+.details{padding:14px 16px}.meta{font-size:12px;color:var(--muted);margin-top:8px}.actions{display:flex;gap:16px;margin-top:12px;color:#c6d3c8}
+button{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#182019;color:#fff;font:inherit}button:active{transform:scale(.98)}.foot{font-size:12px;color:var(--muted);text-align:center;padding:24px}
+</style>
+</head>
+<body>
+<header><div class="brand">Horizon<span>Tok</span></div><div class="status" id="net">Проверка соединения…</div></header>
+<main>
+<div class="tabs"><span class="active">Для вас</span><span>Подписки</span></div>
+<div class="notice" id="notice"><b>Демо-прототип</b> · Сейчас это тестовый интерфейс, не настоящая лента TikTok. Дата и источник будут показаны у каждого реального ролика.</div>
+<section class="card">
+<div class="video"><div class="demo"><strong>HorizonTok</strong>Плейсхолдер видеопотока<br>Подключение источника контента — следующий этап</div></div>
+<div class="details"><b>Тестовая карточка ленты</b><div class="meta">Демо-элемент · не актуальное видео · источник не подключён</div><div class="actions"><span>♡ Нравится</span><span>↗ Поделиться</span><span>☆</span></div></div>
+</section>
+<div style="display:flex;gap:10px;justify-content:center"><button id="retry">Проверить сеть</button><button id="refresh">Обновить демо</button></div>
+<div class="foot">HorizonTok prototype · Не выдаём демо или кеш за свежие публикации</div>
+</main>
+<script>
+const net=document.getElementById('net'),notice=document.getElementById('notice');
+function check(){if(navigator.onLine){net.textContent='Сеть доступна';notice.innerHTML='<b>Источник контента не подключён</b> · Интернет есть, но реальную ленту пока нельзя загрузить.'}else{net.textContent='Офлайн';notice.innerHTML='<b>Нет соединения на устройстве</b> · Проверь Wi‑Fi или мобильные данные.'}}
+document.getElementById('retry').addEventListener('click',check);
+document.getElementById('refresh').addEventListener('click',()=>{check();});
+window.addEventListener('online',check);window.addEventListener('offline',check);check();
+</script>
+</body>
+</html>
